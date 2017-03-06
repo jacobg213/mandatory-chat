@@ -1,0 +1,24 @@
+mixin single_message()
+    article.media
+        figure.media-left
+            .image.is-32x32
+                .user-avatar BM
+        .media-content
+            .content
+                p
+                    strong Barbara Middleton
+                    |  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
+                    small 3 hrs
+mixin modal(name, title, click)
+    .modal(:class="{'is-active' : " + name + "}")
+        .modal-background
+        .modal-card
+            header.modal-card-head
+                p.modal-card-title=title
+                button.delete(@click="close_modal('" + name + "')")
+            section.modal-card-body
+                if block
+                    block
+            footer.modal-card-foot
+                a.button.is-success(@click!=click) Create
+                a.button(@click="close_modal('" + name + "')") Cancel

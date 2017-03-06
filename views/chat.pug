@@ -1,0 +1,57 @@
+extends layout
+include _mixins
+block content
+   #chat.chat-wrapper
+       .columns
+           .column.is-3
+               aside.menu
+                   p.menu-label  Public chat rooms
+                   ul.menu-list.rooms
+                       li
+                           a.is-active General
+                             span.tag.is-primary.is-pulled-right
+                                |2 online
+                       li
+                           a Web Dev
+                       li
+                           a Off topic
+                   p.menu-label  People's chat rooms
+                       ul.menu-list.rooms
+                           li
+                               a.is-active.create-new(@click="new_room_modal = true") Create new
+                                 span.create-icon.is-pulled-right.icon.is-small: i.fa.fa-plus
+                           li
+                       ul.menu-list
+                           li(v-for="")
+                               a General
+                           li
+                               a Web Dev
+                           li
+                               a Off topic
+           .column.is-9
+               .container
+                   .notification
+                       |Current room: &nbsp;
+                       strong General
+               .chat-messages-wrapper
+                   +single_message()
+                   +single_message()
+                   +single_message()
+                   +single_message()
+               .chat-typer
+                   article.media
+                       figure.media-left
+                           .image.is-32x32
+                               .user-avatar DS
+                       .media-content
+                           p.control
+                               textarea.textarea(placeholder='Your message')
+                           p.control
+                               button.button Send
+       +modal('new_room_modal', 'Create new chat room', 'create_room')
+               .control
+                   input.input(type='text', placeholder='Chat room name', :class="{'is-danger' : has_errors != '' && display_errors}" v-model="new_chat_room_title")
+                   .span.help.is-danger(v-show="has_errors != '' && display_errors")
+                       |{{error_message}}
+               .control
+                   textarea.textarea(placeholder='Chat room description' v-model="new_chat_room_description")
