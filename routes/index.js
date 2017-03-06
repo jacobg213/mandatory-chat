@@ -6,21 +6,30 @@ var database = require('../model/database');
 
 /* GET chat landing page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {
-        title: 'Chat',
-        rooms: schema.Room.find({}, function (err, rooms) {
-            if (err) {
-                console.log(err);
-                res.send(err);
-            }
-        }),
-        messages: schema.Message.find({}, function (err, messages) {
-            if (err) {
-                console.log(err);
-                res.send(err);
-            }
-        })
-    });
+    var rooms = mongoose.model('Room');
+    var messages = mongoose.model('Message');
+
+    rooms.find({}, function (err, db_rooms) {
+        if (err) {
+            console.error(err);
+            res.render(err);
+        }
+        else {
+            messages.find({}, function (err, db_messages) {
+                if (err) {
+                    console.error(err);
+                    res.render(err);
+                }
+                else {
+                    res.render('index', {
+                        title: 'Chat',
+                        rooms: db_rooms,
+                        messages: db_messages
+                    })
+                }
+            })
+        }
+    })
 });
 
 module.exports = router;
