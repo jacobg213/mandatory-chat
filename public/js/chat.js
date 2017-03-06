@@ -4,10 +4,17 @@ var chat = new Vue({
         new_chat_room_title: '',
         new_chat_room_description: ''
     },
+    mounted: function () {
+        if(!sessionStorage.getItem("mandatory_chat_user") || !sessionStorage.getItem("mandatory_chat_user_id")){
+            document.location.href = "/";
+        }
+    },
     props: {
         new_room_modal: {default: false},
         display_errors: {default: false},
-        error_message: {default: ''}
+        error_message: {default: ''},
+        user_name: {default: sessionStorage.getItem("mandatory_chat_user")},
+        user_id: {default: sessionStorage.getItem("mandatory_chat_user_id")}
     },
     computed: {
         has_errors: function(){

@@ -9,6 +9,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var rooms = require('./routes/rooms');
 var messages = require('./routes/messages');
+var chat = require('./routes/chat');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/chat', chat);
 app.use('/users', users);
 app.use('/rooms', rooms);
 app.use('/messages', messages);

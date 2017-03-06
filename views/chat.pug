@@ -5,29 +5,32 @@ block content
        .columns
            .column.is-3
                aside.menu
-                   p.menu-label  Public chat rooms
-                   ul.menu-list.rooms
-                       li
-                           a.is-active General
-                             span.tag.is-primary.is-pulled-right
-                                |2 online
-                       li
-                           a Web Dev
-                       li
-                           a Off topic
-                   p.menu-label  People's chat rooms
+                   .media-content
+                       p.title.is-4 {{user_name}}
+                       p.subtitle.is-6 @{{user_id}}
+                       p.menu-label  Public chat rooms
                        ul.menu-list.rooms
                            li
-                               a.is-active.create-new(@click="new_room_modal = true") Create new
-                                 span.create-icon.is-pulled-right.icon.is-small: i.fa.fa-plus
-                           li
-                       ul.menu-list
-                           li(v-for="")
-                               a General
+                               a.is-active General
+                                 span.tag.is-primary.is-pulled-right
+                                    |2 online
                            li
                                a Web Dev
                            li
                                a Off topic
+                       p.menu-label  People's chat rooms
+                           ul.menu-list.rooms
+                               li
+                                   a.is-active.create-new(@click="new_room_modal = true") Create new
+                                     span.create-icon.is-pulled-right.icon.is-small: i.fa.fa-plus
+                               li
+                           ul.menu-list
+                               li(v-for="")
+                                   a General
+                               li
+                                   a Web Dev
+                               li
+                                   a Off topic
            .column.is-9
                .container
                    .notification
@@ -55,3 +58,4 @@ block content
                        |{{error_message}}
                .control
                    textarea.textarea(placeholder='Chat room description' v-model="new_chat_room_description")
+   script(src="/js/chat.js")

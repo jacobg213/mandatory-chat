@@ -1,3 +1,11 @@
+function guid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4();
+}
 var login_form = new Vue({
     el: '#login',
     props: {
@@ -6,6 +14,9 @@ var login_form = new Vue({
         user_login: {default: ''},
         display_errors: {default: false},
         error_message: {default: ''}
+    },
+    mounted: function () {
+        this.redirect_to_chat();
     },
     computed: {
         has_errors: {
@@ -24,17 +35,14 @@ var login_form = new Vue({
         login: function () {
             this.display_errors = true;
             if (this.user_login != '') {
-                if (this.check_nickname() == 'success') {
-                    console.log('redirect');
-                }
+                sessionStorage.setItem('mandatory_chat_user', this.user_login);
+                sessionStorage.setItem('mandatory_chat_user_id', guid());
+               this.redirect_to_chat();
             }
         },
-        check_nickname: function () {
-            // make it working with axios
-            this.loading_status = true;
-            if (this.user_login == 'daniel') {
-                this.error_message = 'Sorry nickname is taken';
-                this.loading_status = false;
+        redirect_to_chat: function () {
+            if(sessionStorage.getItem("mandatory_chat_user") && sessionStorage.getItem("mandatory_chat_user_id")){
+                document.location.href = "/chat";
             }
         }
     }
