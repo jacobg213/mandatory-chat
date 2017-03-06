@@ -16,4 +16,32 @@ router.post('/', function (req, res, next) {
     res.send('Room saved');
 });
 
+/* GET single room data. */
+router.get('/:id', function (req, res, next) {
+    schema.Room.find({'_id': req.params.id}, function (err, db_room) {
+        if (err) {
+            console.error(err);
+            res.render(err);
+        }
+        else {
+            schema.Message.find({'room_id': req.params.id}, function (err, db_messages){
+                if (err) {
+                    var response = {
+                        room: db_room,
+                        messages: 'No data'
+                    };
+                    res.json(response);
+                }
+                else {
+                    var data = {
+                        room: db_room,
+                        messages: db_messages
+                    };
+                    res.json(data);
+                }
+            })
+        }
+    })
+});
+
 module.exports = router;

@@ -3,21 +3,18 @@ var Schema = mongoose.Schema;
 var exports = module.exports = {};
 
 exports.roomSchema = new Schema({
-    id: Number,
     author: String,
     name: String
 });
 
 exports.messageSchema = new Schema({
-    id: Number,
     body:  String,
     author: String,
-    room_id: Number,
+    room_id: String,
     date: { type: Date, default: Date.now }
 });
 
 exports.userSchema = new Schema({
-    id:  Number,
     name: String
 });
 exports.User = mongoose.model('User',exports.userSchema);
