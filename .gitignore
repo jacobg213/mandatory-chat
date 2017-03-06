@@ -35,6 +35,9 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+<<<<<<< HEAD
 
 # IntelliJ config
 .idea/
+=======
+>>>>>>> c799f582b885f4c02fa623d597e7b7f7f86cefc6
