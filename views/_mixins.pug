@@ -1,14 +1,18 @@
-mixin single_message()
-    article.media
+mixin messages()
+    article.media(v-for="message in current_room_messages")
         figure.media-left
             .image.is-32x32
-                .user-avatar BM
+                .user-avatar {{message.author.charAt(0)}}
         .media-content
             .content
                 p
-                    strong Barbara Middleton
-                    |  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                    small 3 hrs
+                    strong {{message.author}}
+                    br
+                    |{{message.body}}
+                    br
+                    small {{message.date}}
+
+
 mixin modal(name, title, click)
     .modal(:class="{'is-active' : " + name + "}")
         .modal-background

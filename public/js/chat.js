@@ -4,9 +4,13 @@ var chat = new Vue({
         new_chat_room_title: '',
         new_chat_room_description: '',
         current_room_messages: {},
-        current_room_data: ''
+        current_room_data: '',
+        new_message: ''
     },
     mounted: function () {
+        if (window.location.hash.substr(1)) {
+            this.change_room(window.location.hash.substr(1));
+        }
         if (!sessionStorage.getItem("mandatory_chat_user") || !sessionStorage.getItem("mandatory_chat_user_id")) {
             document.location.href = "/";
         }
@@ -23,6 +27,8 @@ var chat = new Vue({
         has_errors: function () {
             if (this.new_chat_room_title == '') {
                 this.error_message = 'Please insert name of the chat room';
+            } else if (this.new_message == '' && this.new_room_modal == false) {
+                this.error_message = 'Sorry but you cant send empty message';
             } else {
                 this.error_message = '';
             }
@@ -52,8 +58,11 @@ var chat = new Vue({
 
         },
         create_room: function () {
-            if (this.new_chat_room_title) {
+            if (this.new_chat_room_title == '') {
                 this.display_errors = true;
+                return
+            }else{
+                this.display_errors = false;
             }
             axios.post('/rooms', {
                 name: this.new_chat_room_title,
@@ -71,9 +80,31 @@ var chat = new Vue({
 
         },
         change_room: function (id) {
-            console.log(id);
             this.current_room_index = id;
             this.get_data();
+        },
+        send_message: function () {
+            if (this.new_message == '') {
+                this.display_errors = true;
+                return
+            }
+            this.display_errors = false;
+            axios.post('/messages', {
+
+                body: this.new_message,
+                author: this.user_name,
+                room_id: this.current_room_index
+            })
+                .then(function (response) {
+                    chat.new_message = '';
+                    if (response.data == "Message saved") {
+                        document.location.href = "/chat#" + chat.current_room_index;
+                        chat.get_data();
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
 
     }

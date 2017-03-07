@@ -15,12 +15,9 @@ block content
                                li
                                    a(@click="change_room('" + room.id + "')")
                                         =room.name
-                       p.menu-label  People's chat rooms
-                           ul.menu-list.rooms
-                               li
-                                   a.is-active.create-new(@click="new_room_modal = true") Create new
-                                     span.create-icon.is-pulled-right.icon.is-small: i.fa.fa-plus
-                               li
+                           li
+                               a.is-active.create-new(@click="new_room_modal = true, display_errors = false") Create new
+                                   span.create-icon.is-pulled-right.icon.is-small: i.fa.fa-plus
 
            .column.is-9
                .container
@@ -31,20 +28,19 @@ block content
                    .notification(v-if="current_room_data == ''")
                        | Please select chat room to start chatting
                .chat-messages-wrapper(v-if="current_room_data != ''")
-                   +single_message()
-                   +single_message()
-                   +single_message()
-                   +single_message()
+                        +messages()
                .chat-typer(v-if="current_room_data != ''")
                    article.media
                        figure.media-left
                            .image.is-32x32
-                               .user-avatar DS
+                               .user-avatar {{user_name.charAt(0)}}
                        .media-content
+                           .span.help.is-danger(v-show="has_errors != '' && display_errors")
+                               | {{error_message}}
                            p.control
-                               textarea.textarea(placeholder='Your message')
+                               textarea.textarea(placeholder='Your message' v-model="new_message", @keyup.enter="send_message")
                            p.control
-                               button.button Send
+                               button.button(@click="send_message") Send
        +modal('new_room_modal', 'Create new chat room', 'create_room')
                .control
                    input.input(type='text', placeholder='Chat room name', :class="{'is-danger' : has_errors != '' && display_errors}" v-model="new_chat_room_title")
