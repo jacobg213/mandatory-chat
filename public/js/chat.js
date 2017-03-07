@@ -8,6 +8,12 @@ var chat = new Vue({
         new_message: ''
     },
     mounted: function () {
+        window.setInterval(function(){
+           if(chat.current_room_index != ''){
+               chat.get_data(chat.current_room_index);
+           }
+        }, 5000);
+
         if (window.location.hash.substr(1)) {
             this.change_room(window.location.hash.substr(1));
         }
