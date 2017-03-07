@@ -88,6 +88,8 @@ var chat = new Vue({
         change_room: function (id) {
             this.current_room_index = id;
             this.get_data();
+            window.location.hash = this.current_room_index;
+
         },
         send_message: function () {
             if (this.new_message == '') {
