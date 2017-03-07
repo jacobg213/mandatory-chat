@@ -4,7 +4,8 @@ var exports = module.exports = {};
 
 exports.roomSchema = new Schema({
     author: String,
-    name: String
+    name: String,
+    description: String
 });
 
 exports.messageSchema = new Schema({

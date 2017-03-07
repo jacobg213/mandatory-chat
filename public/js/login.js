@@ -33,11 +33,12 @@ var login_form = new Vue({
     },
     methods: {
         login: function () {
-            this.display_errors = true;
             if (this.user_login != '') {
                 sessionStorage.setItem('mandatory_chat_user', this.user_login);
                 sessionStorage.setItem('mandatory_chat_user_id', guid());
                this.redirect_to_chat();
+            }else{
+                this.display_errors = true;
             }
         },
         redirect_to_chat: function () {

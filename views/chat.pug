@@ -10,38 +10,32 @@ block content
                        p.subtitle.is-6 @{{user_id}}
                        p.menu-label  Public chat rooms
                        ul.menu-list.rooms
-                           li
-                               a.is-active General
-                                 span.tag.is-primary.is-pulled-right
-                                    |2 online
-                           li
-                               a Web Dev
-                           li
-                               a Off topic
+                           -var i = 0
+                           each room in rooms
+                               li
+                                   a(@click="change_room('" + room.id + "')")
+                                        =room.name
                        p.menu-label  People's chat rooms
                            ul.menu-list.rooms
                                li
                                    a.is-active.create-new(@click="new_room_modal = true") Create new
                                      span.create-icon.is-pulled-right.icon.is-small: i.fa.fa-plus
                                li
-                           ul.menu-list
-                               li(v-for="")
-                                   a General
-                               li
-                                   a Web Dev
-                               li
-                                   a Off topic
+
            .column.is-9
                .container
-                   .notification
+                   .notification(v-if="current_room_data != ''")
                        |Current room: &nbsp;
-                       strong General
-               .chat-messages-wrapper
+                       strong(v-text="current_room_data.name")
+                       .title.is-6(v-text="current_room_data.description")
+                   .notification(v-if="current_room_data == ''")
+                       | Please select chat room to start chatting
+               .chat-messages-wrapper(v-if="current_room_data != ''")
                    +single_message()
                    +single_message()
                    +single_message()
                    +single_message()
-               .chat-typer
+               .chat-typer(v-if="current_room_data != ''")
                    article.media
                        figure.media-left
                            .image.is-32x32
