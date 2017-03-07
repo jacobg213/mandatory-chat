@@ -38,7 +38,7 @@ block content
                            .span.help.is-danger(v-show="has_errors != '' && display_errors")
                                | {{error_message}}
                            p.control
-                               textarea.textarea(placeholder='Your message' v-model="new_message", @keyup.enter="send_message")
+                               textarea.textarea(placeholder='Your message' v-model="new_message", @keydown.enter="send_message")
                            p.control
                                button.button(@click="send_message") Send
        +modal('new_room_modal', 'Create new chat room', 'create_room')
