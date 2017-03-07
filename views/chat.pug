@@ -13,7 +13,7 @@ block content
                            -var i = 0
                            each room in rooms
                                li
-                                   a(@click="change_room('" + room.id + "')")
+                                   a(@click="change_room('" + room.id + "')", :class="{'is-active' : current_room_index =='" + room.id + "'}")
                                         =room.name
                            li
                                a.is-active.create-new(@click="new_room_modal = true, display_errors = false") Create new
