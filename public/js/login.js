@@ -55,7 +55,7 @@ var login_form = new Vue({
 
             get: function () {
                 if (this.user_login == '') {
-                    this.error_message = 'Please insert your name';
+                    this.error_message = 'Please enter your nickname';
                 }
                 return this.error_message; // returns error if exist
             },

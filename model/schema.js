@@ -15,9 +15,5 @@ exports.messageSchema = new Schema({
     date: { type: Date, default: Date.now }
 });
 
-exports.userSchema = new Schema({
-    name: String
-});
-exports.User = mongoose.model('User',exports.userSchema);
 exports.Message = mongoose.model('Message',exports.messageSchema);
 exports.Room = mongoose.model('Room',exports.roomSchema);

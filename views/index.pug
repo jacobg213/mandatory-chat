@@ -1,12 +1,12 @@
 extends layout
 
 block content
-  .login-panel#login
-    label.label.has-text-centered Choose your login
-    .control
-      .span.help.is-danger(v-show="has_errors != '' && display_errors")
-        |{{has_errors}}
-      input.input(type="text" name="login", @keyup.enter="login" v-model="user_login", :class="{'is-danger' : has_errors != '' && display_errors}" placeholder="Your login")
-    .control
-      button.button.is-primary(@click="login", :class="{'is-loading' : loading_status}") Login
-  script(src="/js/login.js")
+    .row.center#login
+        .input-field.center.col.s4.offset-s4
+            input(type="text" name="login", @keyup.enter="login" v-model="user_login", :class="{'is-danger' : has_errors != '' && display_errors}")
+            label(for="login" ) Your nickname
+            button.btn.waves-effect.waves-light(@click="login", :class="{'is-loading' : loading_status}") Start
+            span.help(v-show="has_errors != '' && display_errors")
+                | {{has_errors}}
+
+    script(src="/js/login.js")
