@@ -60,7 +60,7 @@ block content
                         textarea.materialize-textarea#room_description(v-model="new_chat_room_description")
                         label(for="room_description") Room description
                 .modal-footer
-                    a.waves-effect.waves-light.btn(@click!="create_room") Create
-                    a.waves-effect.waves-light.btn(@click!="close_modal") Cancel
+                    a.btn-margin.waves-effect.waves-light.btn(@click!="create_room") Create
+                    a.btn-margin.waves-effect.waves-light.btn(@click!="close_modal") Cancel
 
     script(src="/js/chat.js")

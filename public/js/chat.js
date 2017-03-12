@@ -53,9 +53,11 @@ var chat = new Vue({
         },
         close_modal: function () {
             this.display_errors = false;
+            this.new_room_modal = false;
             $('#modal_create').modal().modal('close');
         },
         open_modal: function () {
+            this.new_room_modal = true;
             this.display_errors = false;
             $('#modal_create').modal().modal('open');
         },
