@@ -10,8 +10,8 @@
 * Start the server: `node app.js`
 
 ## Docs
-[School report](https://www.dropbox.com/s/kmhslm4win8ricp/chat_report_jakub_gilis.docx?dl=0)
+[Exercise report](https://www.dropbox.com/s/2eylmlw1aovthka/Chat_mandatory_exercise_1_Jakub_Gilis.pdf?dl=0)
 
 ###Contributors
-* *[Daniel Szerszeń](https://github.com/roszpun)*
-* *[Jakub Gilis](https://github.com/jacobg213)*
+* Frontend - *[Daniel Szerszeń](https://github.com/roszpun)*
+* Backend - *[Jakub Gilis](https://github.com/jacobg213)*
