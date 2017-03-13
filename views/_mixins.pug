@@ -8,7 +8,7 @@ mixin messages()
                 .media-content
                     .content
                         p
-                            strong {{message.author}}
+                            strong {{message.author}} @{{message.author_id}}
                             br
                             |{{message.body}}
                             br

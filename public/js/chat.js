@@ -98,6 +98,7 @@ var chat = new Vue({
             axios.post('/messages', {
                 body: this.new_message,
                 author: this.user_name,
+                author_id: this.user_id,
                 room_id: this.current_room_index
             })
                 .then(function (response) {
