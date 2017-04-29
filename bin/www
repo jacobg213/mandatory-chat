@@ -92,8 +92,8 @@ function onListening() {
 }
 
 io.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
+    socket.on('new chat message', function (data) {
         console.log(data);
+        io.emit('messages', data);
     });
 });

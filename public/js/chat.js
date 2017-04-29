@@ -1,3 +1,4 @@
+var socket = io.connect('http://localhost:3000');
 var chat = new Vue({
     el: '#chat',
     data: {
@@ -8,18 +9,24 @@ var chat = new Vue({
         new_message: ''
     },
     mounted: function () {
-        window.setInterval(function(){
-           if(chat.current_room_index != ''){
-               chat.get_data(chat.current_room_index);
-           }
-        }, 2000);
+        function getting() {
+            if(chat.current_room_index != ''){
+                chat.get_data(chat.current_room_index);
+            }
+        }
+
+        setTimeout(getting, 1000);
 
         if (window.location.hash.substr(1)) {
-            this.change_room(window.location.hash.substr(1));
+           this.change_room(window.location.hash.substr(1));
         }
         if (!sessionStorage.getItem("mandatory_chat_user") || !sessionStorage.getItem("mandatory_chat_user_id")) {
-            document.location.href = "/";
+        document.location.href = "/";
         }
+
+        socket.on('messages', function (data) {
+            console.log(data);
+        });
     },
     props: {
         current_room_index: {default: 0},
@@ -102,11 +109,17 @@ var chat = new Vue({
                 room_id: this.current_room_index
             })
                 .then(function (response) {
-                    chat.new_message = '';
                     if (response.data == "Message saved") {
                         document.location.href = "/chat#" + chat.current_room_index;
                         chat.get_data();
+                        socket.emit('new chat message', {
+                            body: chat.new_message,
+                            author: chat.user_name,
+                            author_id: chat.user_id,
+                            room_id: chat.current_room_index
+                        });
                     }
+                    chat.new_message = '';
                 })
                 .catch(function (error) {
                     console.log(error);
