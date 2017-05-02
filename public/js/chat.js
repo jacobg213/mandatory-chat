@@ -9,14 +9,6 @@ var chat = new Vue({
         new_message: ''
     },
     mounted: function () {
-        function getting() {
-            if(chat.current_room_index != ''){
-                chat.get_data(chat.current_room_index);
-            }
-        }
-
-        setTimeout(getting, 1000);
-
         if (window.location.hash.substr(1)) {
            this.change_room(window.location.hash.substr(1));
         }
@@ -29,7 +21,7 @@ var chat = new Vue({
         });
     },
     props: {
-        current_room_index: {default: 0},
+        current_room_index: {default: ''},
         new_room_modal: {default: false},
         display_errors: {default: false},
         error_message: {default: ''},
@@ -94,6 +86,9 @@ var chat = new Vue({
         change_room: function (id) {
             this.current_room_index = id;
             window.location.hash = this.current_room_index;
+            if(this.current_room_index != ''){
+                this.get_data(this.current_room_index);
+            }
         },
 
         send_message: function () {
